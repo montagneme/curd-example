@@ -1,0 +1,19 @@
+.management-tag{
+  padding: 3px 8px;
+  background-color: rgb(235, 235, 235);
+  color: #333f48;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+.management-tags{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: -4px;
+  margin-left: -4px;
+  &-item{
+    margin-left: 4px;
+    margin-top: 4px;
+  }
+}

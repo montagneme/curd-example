@@ -1,0 +1,30 @@
+.management-button{
+  height: 28px;
+  background-color: #43b539;
+  padding: 8px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-radius: 2px;
+  cursor: pointer;
+  user-select: none;
+  &-icon{
+    width: 24px;
+    height: 24px;
+    color: #ffffff;
+    margin-left: -8px;
+    margin-right: 2px;
+  }
+  &-text{
+    color: #ffffff;
+    font-size: 13px;
+  }
+}
+.management-textbutton{
+  color: #3561f4;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
