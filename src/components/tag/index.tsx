@@ -32,8 +32,8 @@ const TagList: React.FC<ITagListProps> = ({ list, tileNum, renderTag }) => {
 
   return <div className='management-tags'>
     {
-      showList.map((text, index) => <div className='management-tags-item'>
-        <Tag key={index}>{renderTag && typeof renderTag === 'function' ? renderTag(text) : text}</Tag>
+      showList.map((text, index) => <div className='management-tags-item' key={index}>
+        <Tag>{renderTag && typeof renderTag === 'function' ? renderTag(text) : text}</Tag>
       </div>)
     }
     {

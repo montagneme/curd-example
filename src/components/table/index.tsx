@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useSta
 import HightLight, { transferHighLight } from '../highlight';
 import { isMatch } from './utils';
 import './index.scss';
+import VirtualList from './components/virtualList';
 
 type IDataItem = {
   [key: string]: any;
@@ -85,8 +86,17 @@ const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, l
   }, [searchValue, columns, dataSource]);
 
   const hasData = realDataSource.length > 0;
+  const useVirtual = realDataSource.length >= 50; // 暂定超过50条使用虚拟列表
 
-  return <div className='management-table' style={{ maxHeight: `calc(100vh - ${top}px)` }} ref={ref}>
+  const renderRow = useCallback((item, index, style = {}) => <div className={`management-table-content-row ${index % 2 ? 'management-table-content-row_light' : ''}`} style={style} key={item.key || index}>
+    {
+      columns.map(column => <div className='management-table-content-row-cell' key={column.key || column.dataIndex}>
+        {renderCell(column, item, index)}
+      </div>)
+    }
+  </div>, [columns, renderCell]);
+
+  return <div className='management-table' style={{ [useVirtual ? 'height' : 'maxHeight']: `calc(100vh - ${top}px)` }} ref={ref}>
     <div className='management-table-header'>
       {
         columns.map(({ title, dataIndex, key }) => <div className='management-table-header-item' key={key || dataIndex}>
@@ -100,13 +110,7 @@ const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, l
       {
         loading ? <div className='management-table-content-alert'>loading...</div> : !hasData ? <div className='management-table-content-alert'>
           无数据
-        </div> : realDataSource.map((item, index) => <div className='management-table-content-row' key={item.key || index}>
-          {
-            columns.map(column => <div className='management-table-content-row-cell' key={column.key || column.dataIndex}>
-              {renderCell(column, item, index)}
-            </div>)
-          }
-        </div>)
+        </div> : useVirtual ? <VirtualList dataSource={realDataSource} columns={columns} renderRow={renderRow} /> : realDataSource.map((item, index) => renderRow(item, index))
       }
     </div>
     {

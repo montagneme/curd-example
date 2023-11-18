@@ -134,6 +134,16 @@ const mockData = [
   }
 ];
 
+for (let index = 0; index <= 10000; index++) {
+  mockData.push({
+    clientName: '111',
+    boardName: '222',
+    tags: ['2323', '5sfs'],
+    requestor: '444',
+    sdk: '555'
+  });
+}
+
 export const getTableData = (): Promise<{
   Data: any[];
   Code: number;

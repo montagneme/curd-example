@@ -41,7 +41,7 @@ const SDKForm: React.FC<IProps> = ({ children, onSubmit, values }) => {
         onClick: handleOpen
       })
     }
-    <Modal title='Create SDK' visible={visible} onClose={handleClose} onConfirm={handleConfirm}>
+    <Modal title={`${values ? 'Edit' : 'Create'} SDK`} visible={visible} onClose={handleClose} onConfirm={handleConfirm}>
       <Form form={form}>
         <FormItem name='clientName' label='Client name' required>
           <Input />

@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import ReactDOM from 'react-dom';
 import Button, { TextButton } from '../button';
 import { CSSTransition } from 'react-transition-group';
 import AddIcon from '../../assets/add';
@@ -14,7 +15,7 @@ interface IProps {
 
 const Modal: React.FC<IProps> = ({ title, children, visible, onClose, onConfirm }) => {
 
-  return <CSSTransition
+  return ReactDOM.createPortal(<CSSTransition
     in={visible}
     timeout={200}
     classNames='management-modal-container'
@@ -43,7 +44,7 @@ const Modal: React.FC<IProps> = ({ title, children, visible, onClose, onConfirm 
         </div>
       </div>
     </div>
-  </CSSTransition>
+  </CSSTransition>, document.body)
 }
 
 export default Modal;
