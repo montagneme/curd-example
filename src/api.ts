@@ -1,148 +1,15 @@
-const mockData = [
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs', '2fdsad'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs', '2fdsad'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs', '2fdsad'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs', '2fdsad'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs', '2fdsad'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs', '2fdsad'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs', '2fdsad'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs', '2fdsad'],
-    requestor: '444',
-    sdk: '555'
-  },
-  {
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  }
-];
-
-for (let index = 0; index <= 10000; index++) {
-  mockData.push({
-    clientName: '111',
-    boardName: '222',
-    tags: ['2323', '5sfs'],
-    requestor: '444',
-    sdk: '555'
-  });
-}
+import Mock from 'mockjs';
+const mockData = Mock.mock({
+  'list|10000': [
+    {
+      clientName: '@word(2, 6)',
+      boardName: '@word(2, 6)',
+      requestor: '@first()',
+      tags: ['@word(2, 4)', '@word(2, 4)', '@word(2, 4)', '@word(2, 4)'],
+      sdk: ''
+    }
+  ]
+});
 
 export const getTableData = (): Promise<{
   Data: any[];
@@ -152,7 +19,7 @@ export const getTableData = (): Promise<{
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
-        Data: mockData,
+        Data: mockData.list,
         Code: 200,
         Msg: ''
       });
