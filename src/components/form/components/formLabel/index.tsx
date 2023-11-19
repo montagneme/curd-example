@@ -20,7 +20,7 @@ const FormLabel: React.FC<IProps> = ({ children, label, isRequire, help, error }
         </div>
       }
       <div className='management-formlabel-name-text'>
-        <div>{label}</div>
+        <div className='management-formlabel-name-text-label'>{label}</div>
         {
           help && <div className='management-formlabel-name-text-help' title={help}><HelpIcon /></div>
         }
