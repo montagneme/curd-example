@@ -18,7 +18,7 @@ const VirtualList = ({ dataSource, columns, renderRow }) => {
       columnIndex={0}
       rowIndex={index}
     >
-      {() => renderRow(item, index, style)}
+      {() => renderRow(item, item._index || index, index, style)}
     </CellMeasurer>
   }, [dataSource, renderRow]);
 

@@ -70,6 +70,7 @@ const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, l
   const realDataSource = useMemo(() => {
     if (!searchValue) return dataSource;
     return dataSource.filter((data, index) => {
+      data._index = index; // 记录一个原来的index 修改BUG
       return columns.some(({ dataIndex, searcher }) => {
         const value = data[dataIndex];
         if (searcher && typeof searcher === 'function') {
@@ -91,7 +92,7 @@ const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, l
   const useVirtual = realDataSource.length >= 50; // 暂定超过50条使用虚拟列表
 
   // 渲染行
-  const renderRow = useCallback((item, index, style = {}) => <div className={`management-table-content-row ${index % 2 ? 'management-table-content-row_light' : ''}`} style={style} key={item.key || index}>
+  const renderRow = useCallback((item, index, currentIndex, style = {}) => <div className={`management-table-content-row ${currentIndex % 2 ? 'management-table-content-row_light' : ''}`} style={style} key={item.key || index}>
     {
       columns.map(column => <div className='management-table-content-row-cell' key={column.key || column.dataIndex}>
         {renderCell(column, item, index)}
@@ -113,7 +114,7 @@ const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, l
       {
         loading ? <div className='management-table-content-alert'>loading...</div> : !hasData ? <div className='management-table-content-alert'>
           无数据
-        </div> : useVirtual ? <VirtualList dataSource={realDataSource} columns={columns} renderRow={renderRow} /> : realDataSource.map((item, index) => renderRow(item, index))
+        </div> : useVirtual ? <VirtualList dataSource={realDataSource} columns={columns} renderRow={renderRow} /> : realDataSource.map((item, index) => renderRow(item, item._index || index, index))
       }
     </div>
     {
