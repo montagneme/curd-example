@@ -13,7 +13,7 @@ interface IProps {
 
 const SDKForm: React.FC<IProps> = ({ children, onSubmit, values }) => {
   const [visible, setVisible] = useState(false);
-  const form = useForm({
+  const form = useForm({ // 外部可控
     initValues: values
   });
 

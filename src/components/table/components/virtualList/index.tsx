@@ -5,8 +5,8 @@ const VirtualList = ({ dataSource, columns, renderRow }) => {
   const listRef = useRef(null);
 
   const cellMeasurerCache = useMemo(() => new CellMeasurerCache({
-    defaultHeight: 44, // 默认行高度
-    fixedWidth: true, // 是否有固定的宽度
+    defaultHeight: 44,
+    fixedWidth: true,
   }), [dataSource]);
 
   const render = useCallback(({ key, index, style, parent }) => {
@@ -15,7 +15,7 @@ const VirtualList = ({ dataSource, columns, renderRow }) => {
       key={key}
       cache={cellMeasurerCache}
       parent={parent}
-      columnIndex={0} // 对于单列列表，列索引为 0
+      columnIndex={0}
       rowIndex={index}
     >
       {() => renderRow(item, index, style)}

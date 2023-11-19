@@ -13,13 +13,13 @@ export type IColumns = {
   title: string;
   dataIndex: string;
   key?: string;
-  render?: (info: {
+  render?: (info: { // 自定义渲染器
     value: any;
     completeValue: IDataItem;
     index: number;
     searchValue: string;
   }) => React.ReactNode;
-  searcher?: (info: {
+  searcher?: (info: { // 自定义筛选器
     value: any;
     completeValue: IDataItem;
     index: number;
@@ -39,7 +39,7 @@ interface IProps {
 const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, loading }) => {
 
   const ref = useRef(null);
-  const [top, setTop] = useState(0);
+  const [top, setTop] = useState(0); // 记录距离顶部的距离 用于计算表格自动占据剩余高度
 
   useLayoutEffect(() => {
     if (ref.current) {
@@ -48,6 +48,7 @@ const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, l
     }
   }, []);
 
+  // 渲染单元格
   const renderCell = useCallback((column, data, index) => {
     const { dataIndex, render } = column;
     if (render && typeof render === 'function') {
@@ -65,6 +66,7 @@ const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, l
     return value || '-';
   }, [searchValue]);
 
+  // 经过 searchValue 过滤后的 dataSource
   const realDataSource = useMemo(() => {
     if (!searchValue) return dataSource;
     return dataSource.filter((data, index) => {
@@ -88,6 +90,7 @@ const Table: React.FC<IProps> = ({ columns = [], dataSource = [], searchValue, l
   const hasData = realDataSource.length > 0;
   const useVirtual = realDataSource.length >= 50; // 暂定超过50条使用虚拟列表
 
+  // 渲染行
   const renderRow = useCallback((item, index, style = {}) => <div className={`management-table-content-row ${index % 2 ? 'management-table-content-row_light' : ''}`} style={style} key={item.key || index}>
     {
       columns.map(column => <div className='management-table-content-row-cell' key={column.key || column.dataIndex}>

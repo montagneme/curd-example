@@ -18,15 +18,13 @@ export interface IForm {
 }
 
 export default function useForm ({ initValues }: { initValues? }, form?: IForm): IForm {
-  const [valueMap, setValueMap] = useState(initValues || {});
-  console.log('wwwwwl', valueMap);
-  const [errorMap, setErrorMap] = useState({});
-  const fieldMap = useRef({});
+  const [valueMap, setValueMap] = useState(initValues || {}); // 储存表单字段的值
+  const [errorMap, setErrorMap] = useState({}); // 错误信息表
+  const fieldMap = useRef({}); // 记录内部所有字段的信息
 
   useEffect(
     () => {
       if (initValues) {
-        console.log('reset', initValues);
         setValueMap(initValues);
       }
     },
@@ -74,7 +72,6 @@ export default function useForm ({ initValues }: { initValues? }, form?: IForm):
 
   const validate = useCallback(
     () => {
-      console.log('sdsddsfieldMap', fieldMap);
       let status = true;
       const errorMap = {};
       for (const name in fieldMap.current) {
@@ -94,7 +91,6 @@ export default function useForm ({ initValues }: { initValues? }, form?: IForm):
     [valueMap]
   );
 
-  console.log('wpppp', form);
   return {
     valueMap,
     onChange: handleChange,
