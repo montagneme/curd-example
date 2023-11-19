@@ -42,7 +42,7 @@ function SDKManagementView() {
   const handleCreateSubmit = useCallback((formData) => {
     const { tags } = formData;
     const newDataSource = [...dataSource];
-    newDataSource.push({
+    newDataSource.unshift({
       ...formData,
       sdk: '',
       tags: tags ? tags.split(',') : []
